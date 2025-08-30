@@ -1,0 +1,196 @@
+Channels:
+ - conda-forge
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/student/chuynh/.conda/envs/myenv
+
+  added / updated specs:
+    - ipykernel
+    - ipywidgets
+    - jupyterlab
+    - notebook
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    anyio-4.10.0               |     pyhe01879c_0         132 KB  conda-forge
+    argon2-cffi-25.1.0         |     pyhd8ed1ab_0          18 KB  conda-forge
+    argon2-cffi-bindings-25.1.0|  py310h7c4b9e2_0          34 KB  conda-forge
+    arrow-1.3.0                |     pyhd8ed1ab_1          98 KB  conda-forge
+    async-lru-2.0.5            |     pyh29332c3_0          17 KB  conda-forge
+    attrs-25.3.0               |     pyh71513ae_0          56 KB  conda-forge
+    babel-2.17.0               |     pyhd8ed1ab_0         6.6 MB  conda-forge
+    beautifulsoup4-4.13.4      |     pyha770c72_0         143 KB  conda-forge
+    bleach-6.2.0               |     pyh29332c3_4         138 KB  conda-forge
+    bleach-with-css-6.2.0      |       h82add2a_4           4 KB  conda-forge
+    brotli-python-1.1.0        |  py310hf71b8c6_3         343 KB  conda-forge
+    cached-property-1.5.2      |       hd8ed1ab_1           4 KB  conda-forge
+    cached_property-1.5.2      |     pyha770c72_1          11 KB  conda-forge
+    certifi-2025.8.3           |     pyhd8ed1ab_0         155 KB  conda-forge
+    cffi-1.17.1                |  py310h8deb56e_0         238 KB  conda-forge
+    charset-normalizer-3.4.3   |     pyhd8ed1ab_0          50 KB  conda-forge
+    defusedxml-0.7.1           |     pyhd8ed1ab_0          23 KB  conda-forge
+    fqdn-1.5.1                 |     pyhd8ed1ab_1          16 KB  conda-forge
+    h11-0.16.0                 |     pyhd8ed1ab_0          37 KB  conda-forge
+    h2-4.2.0                   |     pyhd8ed1ab_0          53 KB  conda-forge
+    hpack-4.1.0                |     pyhd8ed1ab_0          30 KB  conda-forge
+    httpcore-1.0.9             |     pyh29332c3_0          48 KB  conda-forge
+    httpx-0.28.1               |     pyhd8ed1ab_0          62 KB  conda-forge
+    hyperframe-6.1.0           |     pyhd8ed1ab_0          17 KB  conda-forge
+    idna-3.10                  |     pyhd8ed1ab_1          49 KB  conda-forge
+    ipywidgets-8.1.7           |     pyhd8ed1ab_0         112 KB  conda-forge
+    isoduration-20.11.0        |     pyhd8ed1ab_1          19 KB  conda-forge
+    jinja2-3.1.6               |     pyhd8ed1ab_0         110 KB  conda-forge
+    json5-0.12.1               |     pyhd8ed1ab_0          33 KB  conda-forge
+    jsonpointer-3.0.0          |  py310hff52083_1          15 KB  conda-forge
+    jsonschema-4.25.0          |     pyhe01879c_0          80 KB  conda-forge
+    jsonschema-specifications-2025.4.1|     pyh29332c3_0          19 KB  conda-forge
+    jsonschema-with-format-nongpl-4.25.0|       he01879c_0           5 KB  conda-forge
+    jupyter-lsp-2.2.6          |     pyhe01879c_0          57 KB  conda-forge
+    jupyter_events-0.12.0      |     pyh29332c3_0          23 KB  conda-forge
+    jupyter_server-2.16.0      |     pyhe01879c_0         336 KB  conda-forge
+    jupyter_server_terminals-0.5.3|     pyhd8ed1ab_1          19 KB  conda-forge
+    jupyterlab-4.4.6           |     pyhd8ed1ab_0         8.0 MB  conda-forge
+    jupyterlab_pygments-0.3.0  |     pyhd8ed1ab_2          18 KB  conda-forge
+    jupyterlab_server-2.27.3   |     pyhd8ed1ab_1          48 KB  conda-forge
+    jupyterlab_widgets-3.0.15  |     pyhd8ed1ab_0         185 KB  conda-forge
+    lark-1.2.2                 |     pyhd8ed1ab_1          90 KB  conda-forge
+    markupsafe-3.0.2           |  py310h89163eb_1          23 KB  conda-forge
+    mistune-3.1.3              |     pyh29332c3_0          71 KB  conda-forge
+    nbclient-0.10.2            |     pyhd8ed1ab_0          27 KB  conda-forge
+    nbconvert-core-7.16.6      |     pyh29332c3_0         196 KB  conda-forge
+    nbformat-5.10.4            |     pyhd8ed1ab_1          99 KB  conda-forge
+    notebook-7.4.5             |     pyhd8ed1ab_0         9.9 MB  conda-forge
+    notebook-shim-0.2.4        |     pyhd8ed1ab_1          16 KB  conda-forge
+    overrides-7.7.0            |     pyhd8ed1ab_1          29 KB  conda-forge
+    pandocfilters-1.5.0        |     pyhd8ed1ab_0          11 KB  conda-forge
+    prometheus_client-0.22.1   |     pyhd8ed1ab_0          51 KB  conda-forge
+    pycparser-2.22             |     pyh29332c3_1         108 KB  conda-forge
+    pysocks-1.7.1              |     pyha55dd90_7          21 KB  conda-forge
+    python-fastjsonschema-2.21.1|     pyhd8ed1ab_0         221 KB  conda-forge
+    python-json-logger-2.0.7   |     pyhd8ed1ab_0          13 KB  conda-forge
+    pytz-2025.2                |     pyhd8ed1ab_0         185 KB  conda-forge
+    pyyaml-6.0.2               |  py310h89163eb_2         178 KB  conda-forge
+    referencing-0.36.2         |     pyh29332c3_0          50 KB  conda-forge
+    requests-2.32.4            |     pyhd8ed1ab_0          58 KB  conda-forge
+    rfc3339-validator-0.1.4    |     pyhd8ed1ab_1          10 KB  conda-forge
+    rfc3986-validator-0.1.1    |     pyh9f0ad1d_0           8 KB  conda-forge
+    rfc3987-syntax-1.1.0       |     pyhe01879c_1          22 KB  conda-forge
+    rpds-py-0.27.0             |  py310hd8f68c5_0         377 KB  conda-forge
+    send2trash-1.8.3           |     pyh0d859eb_1          22 KB  conda-forge
+    sniffio-1.3.1              |     pyhd8ed1ab_1          15 KB  conda-forge
+    soupsieve-2.7              |     pyhd8ed1ab_0          37 KB  conda-forge
+    terminado-0.18.1           |     pyh0d859eb_0          22 KB  conda-forge
+    tinycss2-1.4.0             |     pyhd8ed1ab_0          28 KB  conda-forge
+    tomli-2.2.1                |     pyhe01879c_2          21 KB  conda-forge
+    types-python-dateutil-2.9.0.20250809|     pyhd8ed1ab_0          24 KB  conda-forge
+    typing-extensions-4.14.1   |       h4440ef1_0          88 KB  conda-forge
+    typing_utils-0.1.0         |     pyhd8ed1ab_1          15 KB  conda-forge
+    uri-template-1.3.0         |     pyhd8ed1ab_1          23 KB  conda-forge
+    urllib3-2.5.0              |     pyhd8ed1ab_0          99 KB  conda-forge
+    webcolors-24.11.1          |     pyhd8ed1ab_0          18 KB  conda-forge
+    webencodings-0.5.1         |     pyhd8ed1ab_3          15 KB  conda-forge
+    websocket-client-1.8.0     |     pyhd8ed1ab_1          46 KB  conda-forge
+    widgetsnbextension-4.0.14  |     pyhd8ed1ab_0         868 KB  conda-forge
+    yaml-0.2.5                 |       h280c20c_3          83 KB  conda-forge
+    zstandard-0.23.0           |  py310ha75aee5_2         705 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:        31.2 MB
+
+The following NEW packages will be INSTALLED:
+
+  anyio              conda-forge/noarch::anyio-4.10.0-pyhe01879c_0 
+  argon2-cffi        conda-forge/noarch::argon2-cffi-25.1.0-pyhd8ed1ab_0 
+  argon2-cffi-bindi~ conda-forge/linux-64::argon2-cffi-bindings-25.1.0-py310h7c4b9e2_0 
+  arrow              conda-forge/noarch::arrow-1.3.0-pyhd8ed1ab_1 
+  async-lru          conda-forge/noarch::async-lru-2.0.5-pyh29332c3_0 
+  attrs              conda-forge/noarch::attrs-25.3.0-pyh71513ae_0 
+  babel              conda-forge/noarch::babel-2.17.0-pyhd8ed1ab_0 
+  beautifulsoup4     conda-forge/noarch::beautifulsoup4-4.13.4-pyha770c72_0 
+  bleach             conda-forge/noarch::bleach-6.2.0-pyh29332c3_4 
+  bleach-with-css    conda-forge/noarch::bleach-with-css-6.2.0-h82add2a_4 
+  brotli-python      conda-forge/linux-64::brotli-python-1.1.0-py310hf71b8c6_3 
+  cached-property    conda-forge/noarch::cached-property-1.5.2-hd8ed1ab_1 
+  cached_property    conda-forge/noarch::cached_property-1.5.2-pyha770c72_1 
+  certifi            conda-forge/noarch::certifi-2025.8.3-pyhd8ed1ab_0 
+  cffi               conda-forge/linux-64::cffi-1.17.1-py310h8deb56e_0 
+  charset-normalizer conda-forge/noarch::charset-normalizer-3.4.3-pyhd8ed1ab_0 
+  defusedxml         conda-forge/noarch::defusedxml-0.7.1-pyhd8ed1ab_0 
+  fqdn               conda-forge/noarch::fqdn-1.5.1-pyhd8ed1ab_1 
+  h11                conda-forge/noarch::h11-0.16.0-pyhd8ed1ab_0 
+  h2                 conda-forge/noarch::h2-4.2.0-pyhd8ed1ab_0 
+  hpack              conda-forge/noarch::hpack-4.1.0-pyhd8ed1ab_0 
+  httpcore           conda-forge/noarch::httpcore-1.0.9-pyh29332c3_0 
+  httpx              conda-forge/noarch::httpx-0.28.1-pyhd8ed1ab_0 
+  hyperframe         conda-forge/noarch::hyperframe-6.1.0-pyhd8ed1ab_0 
+  idna               conda-forge/noarch::idna-3.10-pyhd8ed1ab_1 
+  ipywidgets         conda-forge/noarch::ipywidgets-8.1.7-pyhd8ed1ab_0 
+  isoduration        conda-forge/noarch::isoduration-20.11.0-pyhd8ed1ab_1 
+  jinja2             conda-forge/noarch::jinja2-3.1.6-pyhd8ed1ab_0 
+  json5              conda-forge/noarch::json5-0.12.1-pyhd8ed1ab_0 
+  jsonpointer        conda-forge/linux-64::jsonpointer-3.0.0-py310hff52083_1 
+  jsonschema         conda-forge/noarch::jsonschema-4.25.0-pyhe01879c_0 
+  jsonschema-specif~ conda-forge/noarch::jsonschema-specifications-2025.4.1-pyh29332c3_0 
+  jsonschema-with-f~ conda-forge/noarch::jsonschema-with-format-nongpl-4.25.0-he01879c_0 
+  jupyter-lsp        conda-forge/noarch::jupyter-lsp-2.2.6-pyhe01879c_0 
+  jupyter_events     conda-forge/noarch::jupyter_events-0.12.0-pyh29332c3_0 
+  jupyter_server     conda-forge/noarch::jupyter_server-2.16.0-pyhe01879c_0 
+  jupyter_server_te~ conda-forge/noarch::jupyter_server_terminals-0.5.3-pyhd8ed1ab_1 
+  jupyterlab         conda-forge/noarch::jupyterlab-4.4.6-pyhd8ed1ab_0 
+  jupyterlab_pygmen~ conda-forge/noarch::jupyterlab_pygments-0.3.0-pyhd8ed1ab_2 
+  jupyterlab_server  conda-forge/noarch::jupyterlab_server-2.27.3-pyhd8ed1ab_1 
+  jupyterlab_widgets conda-forge/noarch::jupyterlab_widgets-3.0.15-pyhd8ed1ab_0 
+  lark               conda-forge/noarch::lark-1.2.2-pyhd8ed1ab_1 
+  markupsafe         conda-forge/linux-64::markupsafe-3.0.2-py310h89163eb_1 
+  mistune            conda-forge/noarch::mistune-3.1.3-pyh29332c3_0 
+  nbclient           conda-forge/noarch::nbclient-0.10.2-pyhd8ed1ab_0 
+  nbconvert-core     conda-forge/noarch::nbconvert-core-7.16.6-pyh29332c3_0 
+  nbformat           conda-forge/noarch::nbformat-5.10.4-pyhd8ed1ab_1 
+  notebook           conda-forge/noarch::notebook-7.4.5-pyhd8ed1ab_0 
+  notebook-shim      conda-forge/noarch::notebook-shim-0.2.4-pyhd8ed1ab_1 
+  overrides          conda-forge/noarch::overrides-7.7.0-pyhd8ed1ab_1 
+  pandocfilters      conda-forge/noarch::pandocfilters-1.5.0-pyhd8ed1ab_0 
+  prometheus_client  conda-forge/noarch::prometheus_client-0.22.1-pyhd8ed1ab_0 
+  pycparser          conda-forge/noarch::pycparser-2.22-pyh29332c3_1 
+  pysocks            conda-forge/noarch::pysocks-1.7.1-pyha55dd90_7 
+  python-fastjsonsc~ conda-forge/noarch::python-fastjsonschema-2.21.1-pyhd8ed1ab_0 
+  python-json-logger conda-forge/noarch::python-json-logger-2.0.7-pyhd8ed1ab_0 
+  pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0 
+  pyyaml             conda-forge/linux-64::pyyaml-6.0.2-py310h89163eb_2 
+  referencing        conda-forge/noarch::referencing-0.36.2-pyh29332c3_0 
+  requests           conda-forge/noarch::requests-2.32.4-pyhd8ed1ab_0 
+  rfc3339-validator  conda-forge/noarch::rfc3339-validator-0.1.4-pyhd8ed1ab_1 
+  rfc3986-validator  conda-forge/noarch::rfc3986-validator-0.1.1-pyh9f0ad1d_0 
+  rfc3987-syntax     conda-forge/noarch::rfc3987-syntax-1.1.0-pyhe01879c_1 
+  rpds-py            conda-forge/linux-64::rpds-py-0.27.0-py310hd8f68c5_0 
+  send2trash         conda-forge/noarch::send2trash-1.8.3-pyh0d859eb_1 
+  sniffio            conda-forge/noarch::sniffio-1.3.1-pyhd8ed1ab_1 
+  soupsieve          conda-forge/noarch::soupsieve-2.7-pyhd8ed1ab_0 
+  terminado          conda-forge/noarch::terminado-0.18.1-pyh0d859eb_0 
+  tinycss2           conda-forge/noarch::tinycss2-1.4.0-pyhd8ed1ab_0 
+  tomli              conda-forge/noarch::tomli-2.2.1-pyhe01879c_2 
+  types-python-date~ conda-forge/noarch::types-python-dateutil-2.9.0.20250809-pyhd8ed1ab_0 
+  typing-extensions  conda-forge/noarch::typing-extensions-4.14.1-h4440ef1_0 
+  typing_utils       conda-forge/noarch::typing_utils-0.1.0-pyhd8ed1ab_1 
+  uri-template       conda-forge/noarch::uri-template-1.3.0-pyhd8ed1ab_1 
+  urllib3            conda-forge/noarch::urllib3-2.5.0-pyhd8ed1ab_0 
+  webcolors          conda-forge/noarch::webcolors-24.11.1-pyhd8ed1ab_0 
+  webencodings       conda-forge/noarch::webencodings-0.5.1-pyhd8ed1ab_3 
+  websocket-client   conda-forge/noarch::websocket-client-1.8.0-pyhd8ed1ab_1 
+  widgetsnbextension conda-forge/noarch::widgetsnbextension-4.0.14-pyhd8ed1ab_0 
+  yaml               conda-forge/linux-64::yaml-0.2.5-h280c20c_3 
+  zstandard          conda-forge/linux-64::zstandard-0.23.0-py310ha75aee5_2 
+
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
