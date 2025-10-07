@@ -1,81 +1,161 @@
-import re
-import pandas as pd
-from typing import Callable, Optional
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-import os
-print("Current working directory:", os.getcwd())
+"""
+Predict CEFR level for each JSON object’s original sentence and output
+the same objects with an added field: `original_level`.
 
+Input formats supported:
+- JSONL: one object per line, e.g. {"text_id": "01", "original": "...."}
+- JSON array file: [ {"text_id": "...", "original": "..."}, ... ]
 
-# ---------- 1) Prompt builder ----------
-CEFR_PROMPT_TEMPLATE = (
-    "You are an expert in language proficiency classification based on the "
-    "Common European Framework of Reference for Languages (CEFR). Your task is to analyze "
-    "the given text or narrative and determine its CEFR level [A1, A2, B1, B2, C1, or C2] "
-    "based on vocabulary complexity, grammar, and overall language proficiency. "
-    "Provide only the CEFR level as output, without explanation or justification.\n\n"
-    "Text: {text}\n\n"
-    "Answer:"
-)
+Accepted original-sentence keys (first match wins):
+- "original", "original_sentence", "sentence", "text"
 
-def build_cefr_prompt(text: str) -> str:
-    return CEFR_PROMPT_TEMPLATE.format(text=text)
+Usage:
+  python cefr_original_level.py --in input.jsonl --out output.jsonl
 
-# ---------- 2) Output parser ----------
-_VALID_LABELS = ["A1","A2","B1","B2","C1","C2"]
-_LABEL_RE = re.compile(r"\b(A1|A2|B1|B2|C1|C2)\b", re.IGNORECASE)
+Requires: transformers>=4.x, torch (or another backend supported by transformers)
+"""
 
-def parse_cefr_label(model_output: str) -> Optional[str]:
-    m = _LABEL_RE.search(model_output or "")
-    return m.group(1).upper() if m else None
+import argparse, io, json, sys
+from collections import Counter, defaultdict
+from typing import List, Dict, Any
 
-# ---------- 3) Classifier ----------
-def classify_cefr(text: str, llm_call: Callable[[str], str]) -> Optional[str]:
-    prompt = build_cefr_prompt(text)
-    raw = llm_call(prompt)
-    return parse_cefr_label(raw)
+from transformers import pipeline
 
-# ---------- 4) JSONL handler ----------
-def annotate_jsonl_with_original_cefr(
-    input_path: str = "Summarization.jsonl",
-    text_column: str = "original",
-    output_jsonl: str = "Final_Summarization.jsonl",
-    llm_call: Callable[[str], str] = None,
-):
-    assert llm_call is not None, "Please provide an llm_call(prompt)->str function."
+# ----------------------------- Config -------------------------------- #
 
-    # Read JSONL into DataFrame
-    df = pd.read_json(input_path, lines=True)
+MODEL_NAMES = [
+    "AbdullahBarayan/ModernBERT-base-doc_en-Cefr",
+    "AbdullahBarayan/ModernBERT-base-doc_sent_en-Cefr",
+    "AbdullahBarayan/ModernBERT-base-reference_AllLang2-Cefr2",
+]
 
-    # Cache repeated queries
-    cache = {}
-    def _predict(text):
-        if pd.isna(text) or not str(text).strip():
-            return None
-        key = str(text)
-        if key not in cache:
-            cache[key] = classify_cefr(key, llm_call)
-        return cache[key]
+# Order for tie-breaking
+CEFR_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"]
+CEFR_RANK = {lbl: i for i, lbl in enumerate(CEFR_ORDER)}
 
-    # Add new column
-    df["Original_CEFR_Level"] = df[text_column].apply(_predict)
+# Keys we’ll try for the original sentence
+ORIG_KEYS = ["original", "original_sentence", "sentence", "text"]
 
-    # Save back to JSONL (preserve line-by-line JSON objects)
-    df.to_json(output_jsonl, orient="records", lines=True, force_ascii=False)
-    print(f"Saved JSONL with CEFR levels: {output_jsonl}")
-# ---------- Example usage ----------
-def openai_llm_call(prompt: str) -> str:
-    from openai import OpenAI
-    client = OpenAI(api_key="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")   # 👈 replace YOUR_KEY with your real key
-    resp = client.chat.completions.create(
-        model="gpt-4o-mini",              # you can use gpt-4o-mini or another model
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0
+# --------------------------- Utilities -------------------------------- #
+
+def load_items(path: str) -> List[Dict[str, Any]]:
+    """Load a JSONL file or a JSON array file into a list of dicts."""
+    with open(path, "r", encoding="utf-8") as f:
+        start = f.read(1)
+        f.seek(0)
+        if start.strip().startswith("["):  # JSON array
+            data = json.load(f)
+            if not isinstance(data, list):
+                raise ValueError("Top-level JSON is not a list.")
+            return data
+        else:  # JSONL
+            items = []
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                items.append(json.loads(line))
+            return items
+
+def save_items_jsonl(items: List[Dict[str, Any]], path: str) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        for obj in items:
+            f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+def get_original_text(obj: Dict[str, Any]) -> str:
+    for k in ORIG_KEYS:
+        if k in obj and isinstance(obj[k], str):
+            return obj[k]
+    raise KeyError(
+        f"Could not find the original sentence in any of keys {ORIG_KEYS} for object with keys {list(obj.keys())}"
     )
-    return resp.choices[0].message.content.strip()
 
-annotate_jsonl_with_original_cefr(
-    input_path="Summarization.jsonl",
-    text_column="original",
-    output_jsonl="Final_Summarization.jsonl",
-    llm_call=openai_llm_call
-)
+# ------------------------- Voting logic -------------------------------- #
+
+def vote_label(preds: List[Dict[str, float]]) -> str:
+    """
+    preds: list of {"label": "B1", "score": 0.92} from 3 models (top-1 each).
+    Rule:
+      1) Majority vote by label.
+      2) Tie -> pick label with highest mean confidence among tied labels.
+      3) Still tie -> pick by CEFR order (lower rank first).
+    """
+    counts = Counter(p["label"] for p in preds)
+    most = counts.most_common()
+    max_votes = most[0][1]
+    tied = [lbl for lbl, c in most if c == max_votes]
+
+    if len(tied) == 1:
+        return tied[0]
+
+    # mean confidence among tied labels
+    mean_conf = defaultdict(list)
+    for p in preds:
+        if p["label"] in tied:
+            mean_conf[p["label"]].append(p["score"])
+    best_lbl, best_mean = None, -1.0
+    for lbl, arr in mean_conf.items():
+        m = sum(arr) / max(1, len(arr))
+        if m > best_mean:
+            best_lbl, best_mean = lbl, m
+
+    # if another tie (rare), use CEFR rank
+    tied2 = [lbl for lbl, arr in mean_conf.items() if abs(sum(arr)/len(arr) - best_mean) < 1e-12]
+    if len(tied2) == 1:
+        return best_lbl
+    return sorted(tied2, key=lambda x: CEFR_RANK.get(x, 999))[0]
+
+# --------------------------- Main flow --------------------------------- #
+
+def build_pipelines(device: int = -1):
+    """Create three text-classification pipelines (top-1)."""
+    models = []
+    for m in MODEL_NAMES:
+        clf = pipeline(task="text-classification", model=m, device=device)
+        models.append(clf)
+    return models
+
+def predict_original_level(text: str, models) -> str:
+    preds = []
+    for mdl in models:
+        out = mdl(text)
+        # `pipeline` returns a list with one dict: [{'label': 'B1', 'score': 0.93}]
+        top = out[0]
+        preds.append({"label": top["label"], "score": float(top["score"])})
+    return vote_label(preds)
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--in", dest="inp", required=True, help="Path to input JSONL or JSON array file")
+    ap.add_argument("--out", dest="outp", required=True, help="Path to output JSONL")
+    ap.add_argument("--device", type=int, default=-1, help="Transformers device id (-1=CPU, 0=CUDA:0, ...)")
+    ap.add_argument("--orig_key", default=None, help="Force a specific key for original sentence (optional)")
+    ap.add_argument("--level_key", default="original_level", help="Output field name for the level")
+    args = ap.parse_args()
+
+    items = load_items(args.inp)
+    models = build_pipelines(device=args.device)
+
+    used_key = args.orig_key
+    out_items = []
+    for obj in items:
+        try:
+            text = obj[used_key] if used_key else get_original_text(obj)
+        except KeyError as e:
+            print(f"[WARN] {e}", file=sys.stderr)
+            continue
+
+        level = predict_original_level(text, models)
+        new_obj = dict(obj)
+        new_obj[args.level_key] = level
+        out_items.append(new_obj)
+
+    # Keep the output as JSONL for robust downstream use
+    save_items_jsonl(out_items, args.outp)
+    print(f"Done. Wrote {len(out_items)} objects to: {args.outp}")
+
+if __name__ == "__main__":
+    main()
